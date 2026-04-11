@@ -49,7 +49,7 @@ class VideoDataset(Dataset):
     
     def __getitem__(self, idx: int) -> Tuple[List[Image.Image], Image.Image, List[Image.Image]]:
         sequence = self.data[idx]
-        path = os.path.join(self.data_path, sequence['path'])
+        path = os.path.join(self.data_path, f"{sequence['video_id']}.mp4")
         input_frames = self.load_frames(path, sequence['frame_indices'][:8])
         target_frame = self.load_frames(path, [sequence['frame_indices'][-1]])[0]
         distractor_frames = self.load_frames(path, sequence['distractor_indices'])
@@ -98,7 +98,7 @@ class VideoDataset_TCV(Dataset):
     
     def __getitem__(self, idx: int) -> Tuple[List[Image.Image], Image.Image, List[Image.Image]]:
         sequence = self.data[idx]
-        path = os.path.join(self.data_path, sequence['path'])
+        path = os.path.join(self.data_path, f"{sequence['video_id']}.mp4")
         all_frames = self.load_frames(path, sequence['frame_indices'][1:9])
         distractor_frame = self.load_frames(path, [sequence['distractor_indices']])
         answer = sequence['answer']
